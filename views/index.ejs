@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Management</title>
+</head>
+<body>
+<h1>Stock Management</h1>
+<form action="/stocks" method="POST">
+    <input type="text" name="item_name" placeholder="Item Name" required>
+    <input type="number" name="quantity" placeholder="Quantity" required>
+    <input type="text" name="price" placeholder="Price" required>
+    <button type="submit">Add Stock</button>
+</form>
+<ul>
+    <% stocks.forEach(stock => { %>
+        <li>
+            <%= stock.item_name %> - <%= stock.quantity %> - $<%= stock.price %>
+            <form action="/stocks/<%= stock.id %>?_method=PUT" method="POST">
+                <input type="text" name="item_name" value="<%= stock.item_name %>">
+                <input type="number" name="quantity" value="<%= stock.quantity %>">
+                <input type="text" name="price" value="<%= stock.price %>">
+                <button type="submit">Update</button>
+            </form>
+            <form action="/stocks/<%= stock.id %>?_method=DELETE" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    <% }) %>
+</ul>
+</body>
+</html>
